@@ -15,6 +15,7 @@ from nltk.corpus import stopwords  # Load list of stopwords
 from nltk import word_tokenize # Convert paragraph in tokens
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt')
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
