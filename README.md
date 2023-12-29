@@ -1,68 +1,62 @@
 # Text Similarity API Testing
  
-### Approach of Part A:
-
-1) Data Loading and Exploration:
-    pandas: Imports the CSV data into a DataFrame for efficient manipulation and analysis.
-    numpy: Potentially used for numerical operations later (not shown in this code snippet).
-    df.shape: Displays the DataFrame's dimensions to understand its structure.
-    df.isnull().sum(): Checks for missing values to ensure data integrity.
-2) Text Preprocessing:
-    re: Employs regular expressions to clean the text by removing non-alphanumeric characters.
-    nltk.corpus.stopwords: Loads a list of common English stopwords (e.g., "the", "a", "and") to filter out less meaningful words.
-    preprocess_text() function: Encapsulates the cleaning steps for reusability.
-3) Word Tokenization and Lemmatization:
-    nltk.word_tokenize: Splits text into individual words (tokens) for further analysis.
-    nltk.stem.WordNetLemmatizer: Reduces words to their root forms (lemmas) to improve similarity comparisons.
-    word_tokenizer() function: Organizes tokenization and lemmatization for consistency.
-4) Feature Representation:
-    sklearn.feature_extraction.text.TfidfVectorizer: Creates a TF-IDF (Term Frequency-Inverse Document Frequency) matrix, a numerical representation that captures word importance within each text snippet.
-5) Similarity Calculation:
-    sklearn.metrics.pairwise.cosine_similarity: Computes the cosine similarity between pairs of text snippets based on their TF-IDF representations. Cosine similarity measures the angle between vectors, indicating similarity in text content.
-    calculate_similarity() function: Applies TF-IDF and cosine similarity to each row of the DataFrame.
-6) Result Generation:
-    Creates new columns in the DataFrame to store the calculated similarity scores and a binary score (0 or 1) based on a threshold of 0.5.
-7) Key Libraries and Tools:
-    pandas: Essential for data manipulation and analysis.
-    numpy: Often used for numerical computations, though not explicitly shown in this code.
-    re: Provides regular expression capabilities for text cleaning.
-    nltk: Natural Language Toolkit for tasks like stopword removal, tokenization, and lemmatization.
-    sklearn: Scikit-learn library offers tools for feature extraction (TF-IDF) and similarity calculations.
+# Approach of Part A
+## Data Handling
+    1) Load CSV Data: We use the pandas library to efficiently load the text data from a CSV file into a DataFrame, a structured table-like format for easy manipulation and analysis.
+    2) Explore Data: We inspect the DataFrame's dimensions using df.shape to understand its structure and check for missing values using df.isnull().sum() to ensure data integrity.
+## Text Cleaning
+    1) Remove Unwanted Characters: We employ regular expressions from the re library to discard non-alphanumeric characters, such as punctuation and symbols, that might not be relevant for text comparison.
+    2) Filter Common Words: We leverage the nltk library's list of common English stopwords (e.g., "the", "a", "and") to remove them, as they often carry less meaning in text analysis.
+    3) Encapsulate Steps: We create a reusable function called preprocess_text() to streamline these cleaning steps.
+## Word Processing
+    1) Split into Words: We tokenize the text, meaning we split it into individual words or tokens, using nltk.word_tokenize() for further analysis.
+    2)Reduce to Roots: We apply lemmatization with nltk.stem.WordNetLemmatizer() to reduce words to their root forms (lemmas), improving similarity comparisons by grouping related words together.
+    3) Organize Process: We organize tokenization and lemmatization within a word_tokenizer() function for consistency.
+## Feature Extraction
+    1) TF-IDF Representation: We create a TF-IDF (Term Frequency-Inverse Document Frequency) matrix using sklearn.feature_extraction.text.TfidfVectorizer. This numerical representation captures the importance of words within each text snippet, considering both their frequency within a document and their rarity across the entire dataset.
+## Similarity Measurement
+    1) Compute Cosine Similarity: We calculate the cosine similarity between pairs of text snippets based on their TF-IDF representations using sklearn.metrics.pairwise.cosine_similarity. Cosine similarity measures the angle between vectors, with higher values indicating greater similarity in text content.
+    2) Apply to DataFrame: We create a calculate_similarity() function to apply TF-IDF and cosine similarity to each row of the DataFrame.
+## Generate Results
+    1) Store Similarity Scores: We add new columns to the DataFrame to store the calculated similarity scores and a binary score (0 or based on a threshold of 0.5, indicating whether pairs of text snippets are considered similar or not.
+## Key Libraries
+    1) pandas: Essential for data manipulation and analysis.
+    2) numpy: Often used for numerical computations (not explicitly shown in this code).
+    3) re: Provides regular expression capabilities for text cleaning.
+    4) nltk: Natural Language Toolkit for tasks like stopword removal, tokenization, and lemmatization.
+    5) sklearn: Scikit-learn library offers tools for feature extraction (TF-IDF) and similarity calculations.
 
  
-### Approach of Part B:
+# Approach of Part B
+## Gather Essential Tools:
+    1) flask: This library serves as the foundation for building the web application and managing incoming requests.
+    2) pandas, numpy, re, nltk, sklearn: These libraries, already introduced in Part A, continue to play crucial roles in text processing and similarity calculations.
+## Define Core Functions for Reusability:
+    1) preprocess_text(): This function, identical to the one in Part A, diligently cleanses text data for accurate comparison.
+    2) calculate_cosine_similarity(): This function, also mirroring its counterpart in Part A, meticulously computes the cosine similarity between two preprocessed text snippets.
+## Construct the Flask Application:
+    1) app = Flask(name): This line of code meticulously initializes a Flask application instance, laying the groundwork for the web API.
+## Establish a Route:
+    1) @app.route('/', methods=['POST', 'GET']): This decorator meticulously designates a function to gracefully handle requests directed to the root URL of the application. It demonstrates a welcoming embrace of both POST and GET methods, fostering flexibility in data submission.
+### Implement the index() Function:
+    1) Log Message (Debugging): A message is elegantly printed for debugging purposes, aiding in troubleshooting and code refinement.
+    2) Retrieve Input Data: The function meticulously parses JSON data from the request body, eagerly extracting the 'text1' and 'text2' fields that hold the text snippets awaiting comparison.
+    3) Validate Input: To ensure integrity, a ValueError is decisively raised if either 'text1' or 'text2' is missing, preventing potential errors and promoting data quality.
+    4) Calculate Similarity: The extracted text snippets are diligently passed to the calculate_cosine_similarity() function, which meticulously computes the similarity score, quantifying the degree of resemblance between the two text segments.
+    5) Format Result as JSON: The calculated similarity score is elegantly encapsulated within a JSON response, a format embraced for its readability and cross-platform compatibility, enabling seamless integration with diverse systems.
+    6) Handle Errors Gracefully: The function vigilantly catches ValueError and other unforeseen exceptions, gracefully returning informative error messages in JSON format to aid in troubleshooting and promote a user-friendly experience.
+## Execute Independently:
+    1) if name == 'main': This conditional statement ensures that the code embarks on its execution journey only when directly invoked, not when imported as a module within another script, preserving code organization and modularity.
+    2) app.run(debug=True): This line enthusiastically initiates the Flask application in debug mode, fostering a development-friendly environment with automatic reloading upon code modifications, streamlining the development process and fostering efficiency.
 
-1) Import Necessary Libraries:
-    flask: For building the web application and handling requests.
-    pandas, numpy, re, nltk, sklearn: Identical to those used in the previous code for text processing and similarity calculations.
-2) Define Text Preprocessing and Similarity Calculation Functions:
-    preprocess_text(): Cleans text data for comparison (identical to the previous code).
-    calculate_cosine_similarity(): Calculates cosine similarity between two preprocessed text snippets (identical to the previous code).
-3) Create a Flask Application:
-    app = Flask(name): Initializes a Flask application instance.
-    Define a Route for Handling Requests:
-    @app.route('/', methods=['POST', 'GET']): Decorates a function to handle requests to the root URL of the application, accepting both POST and GET methods.
-4) Implement the Request Handling Function:
-    index():
-        Prints a log message for debugging purposes.
-        Retrieves input data: Parses JSON data from the request body, containing 'text1' and 'text2' fields.
-        Validates input: Raises a ValueError if 'text1' or 'text2' is missing.
-        Calls the similarity calculation function: Passes the extracted text snippets to calculate_cosine_similarity() to compute the similarity score.
-        Formats the result as JSON: Creates a JSON response containing the calculated similarity score.
-        Handles errors: Catches ValueError and other exceptions, returning appropriate error messages in JSON format.
-5) Run the Application:
-    if name == 'main': Ensures the code runs only when executed directly, not when imported as a module.
-    app.run(debug=True): Starts the Flask application in debug mode, enabling automatic reloading upon code changes.
+
+
+
+# How to Test API
  
-
-## How to Test API
- 
-
-
 This repository contains instructions for testing the Text Similarity API using cURL and a Python script (`TestAPI.py`). The API measures the similarity between two text inputs.
 
  ## Testing the API using cURL
-
 
 1. Open your terminal.
  
