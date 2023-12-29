@@ -13,6 +13,7 @@ from tqdm import tqdm
 from nltk.stem import WordNetLemmatizer  # For Lemmetization of words
 from nltk.corpus import stopwords  # Load list of stopwords
 from nltk import word_tokenize # Convert paragraph in tokens
+nltk.download('stopwords')
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
