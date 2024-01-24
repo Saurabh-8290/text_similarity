@@ -20,6 +20,7 @@ def preprocess_text(text):
     #convert the text into lowercase
     text = text.lower()
     # Remove punctuation from the text
+    text=re.sub(r'\d','',text)
     text = ''.join([word for word in text if word not in string.punctuation])
     # convert the sentence or paragraph into words
     tokens = word_tokenize(text)
