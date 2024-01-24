@@ -1,6 +1,8 @@
 import requests
 import json
 from requests.packages.urllib3.util.ssl_ import create_urllib3_context
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 url = 'https://textsimilarity-4eac8082be50.herokuapp.com/'
 text1 = input("input text1 : ")
