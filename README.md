@@ -84,6 +84,6 @@ This repository contains instructions for testing the Text Similarity API using 
  
 ## Note
  
-- The API endpoint is hosted at https://text-similarity-c378e9b00a22.herokuapp.com/. Ensure a stable internet connection for successful API communication.
+- The API endpoint is hosted at https://textsimilarity-4eac8082be50.herokuapp.com/. Ensure a stable internet connection for successful API communication.
  
 - The Python script (`TestAPI.py`) demonstrates how to interact with the API using the `requests` library.
