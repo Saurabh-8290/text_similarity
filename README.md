@@ -63,7 +63,7 @@ This repository contains instructions for testing the Text Similarity API using 
 2. Execute the following cURL command, replacing `{Enter your text1}` and `{Enter your text2}` with your desired text inputs:
  
     ```
-    curl -X POST -d "{\"text1\": \"{Enter your text1}\",\"text2\": \"{Enter your text2}\"}" -H "Content-Type: application/json" https://text-similarity-c378e9b00a22.herokuapp.com/
+    curl -X POST -d "{\"text1\": \"{Enter your text1}\",\"text2\": \"{Enter your text2}\"}" -H "Content-Type: application/json" https://textsimilarity-4eac8082be50.herokuapp.com/
     ```
  
 3. Review the API response in the terminal to assess the text similarity.

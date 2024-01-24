@@ -2,7 +2,7 @@ import requests
 import json
 from requests.packages.urllib3.util.ssl_ import create_urllib3_context
 
-url = 'https://text-similarity-c378e9b00a22.herokuapp.com/'
+url = 'https://textsimilarity-4eac8082be50.herokuapp.com/'
 text1 = input("input text1 : ")
 text2 = input("input text2 : ")
 
