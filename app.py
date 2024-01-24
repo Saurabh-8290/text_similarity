@@ -7,19 +7,27 @@ from nltk.stem import WordNetLemmatizer  # used for lemmatization (reducing word
 from nltk.corpus import stopwords  # imports the stopwords module from nltk, which contains a list of common words (e.g., "the," "and") that are often excluded from text processing.
 from nltk import word_tokenize # imports the word_tokenize function from nltk, which is used to split text into individual words (tokens).
 import nltk
+import string
 nltk.download('stopwords')
 nltk.download('punkt')
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+stop_words = set(stopwords.words('english'))
 #This function preprocesses a given text by removing non-alphanumeric characters, converting to lowercase, and removing stopwords.
 def preprocess_text(text):
-    # Remove non-alphanumeric characters and convert to lowercase
-    sent = re.sub('[^A-Za-z0-9]+', ' ', text)
+    #convert the text into lowercase
+    text = text.lower()
+    # Remove punctuation from the text
+    text = ''.join([word for word in text if word not in string.punctuation])
+    # convert the sentence or paragraph into words
+    tokens = word_tokenize(text)
     # Remove stopwords
-    sent = ' '.join(e for e in sent.split() if e.lower() not in stopwords.words('english'))
-    return sent.lower().strip()
+    tokens = [word for word in tokens if word not in stop_words]
+    return ' '.join(tokens)
+    
+    
 
 #This function calculates the cosine similarity between two input texts after preprocessing them using lemmatization and TF-IDF transformation.
 def calculate_cosine_similarity(text1, text2):
@@ -43,7 +51,7 @@ def calculate_cosine_similarity(text1, text2):
     # Calculate cosine similarity
     cos_sim = cosine_similarity(tfidf_matrix[0], tfidf_matrix[1])
 
-    return round(cos_sim[0][0])
+    return cos_sim[0][0]
 
 
 app = Flask(__name__)
